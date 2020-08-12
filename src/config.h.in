@@ -1,5 +1,8 @@
 /* src/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Short form of the HEAD commit checksum */
+#undef CLY_HEAD_CHECKSUM
+
 /* Define to 1 if you have the `arc4random' function. */
 #undef HAVE_ARC4RANDOM
 

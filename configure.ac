@@ -30,7 +30,7 @@
 
 AC_PREREQ(2.64)
 
-AC_INIT(breakpad, 0.1, google-breakpad-dev@googlegroups.com)
+AC_INIT(breakpad, 0.1+cly, google-breakpad-dev@googlegroups.com)
 dnl Sanity check: the argument is just a file that should exist.
 AC_CONFIG_SRCDIR(README.md)
 AC_CONFIG_AUX_DIR(autotools)
@@ -104,6 +104,9 @@ AC_SUBST([WARN_CXXFLAGS])
 dnl Test support for O_CLOEXEC
 AX_CHECK_DEFINE([fcntl.h], [O_CLOEXEC], [],
                 [AC_DEFINE([O_CLOEXEC], [0], [Fallback definition for old systems])])
+
+
+AC_DEFINE([CLY_HEAD_CHECKSUM], [m4_esyscmd([printf "\"$(git rev-parse --short HEAD)\""])], [Short form of the HEAD commit checksum])
 
 # Only build Linux client libs when compiling for Linux
 case $host in

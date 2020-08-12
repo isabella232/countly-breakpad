@@ -40,6 +40,7 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
 #include "common/path_helper.h"
 #include "common/scoped_ptr.h"
 #include "common/using_std_string.h"
@@ -128,7 +129,9 @@ static void Usage(int argc, const char *argv[], bool error) {
           "Options:\n"
           "\n"
           "  -m         Output in machine-readable format\n"
-          "  -s         Output stack contents\n",
+          "  -s         Output stack contents\n"
+          "  -v         Print manually set version string\n"
+          "  -c         Print short build commit hash\n",
           google_breakpad::BaseName(argv[0]).c_str());
 }
 
@@ -138,7 +141,7 @@ static void SetupOptions(int argc, const char *argv[], Options* options) {
   options->machine_readable = false;
   options->output_stack_contents = false;
 
-  while ((ch = getopt(argc, (char * const *)argv, "hms")) != -1) {
+  while ((ch = getopt(argc, (char * const*)argv, "hmsvc")) != -1) {
     switch (ch) {
       case 'h':
         Usage(argc, argv, false);
@@ -150,6 +153,16 @@ static void SetupOptions(int argc, const char *argv[], Options* options) {
         break;
       case 's':
         options->output_stack_contents = true;
+        break;
+
+      case 'v':
+        fprintf(stdout, VERSION "\n");
+        exit(0);
+        break;
+
+      case 'c':
+        fprintf(stdout, CLY_HEAD_CHECKSUM "\n");
+        exit(0);
         break;
 
       case '?':

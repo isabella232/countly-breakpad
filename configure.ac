@@ -30,7 +30,7 @@
 
 AC_PREREQ(2.57)
 
-AC_INIT(breakpad, 0.1, google-breakpad-dev@googlegroups.com)
+AC_INIT(breakpad, 0.1+cly, google-breakpad-dev@googlegroups.com)
 dnl Sanity check: the argument is just a file that should exist.
 AC_CONFIG_SRCDIR(README.md)
 AC_CONFIG_AUX_DIR(autotools)
@@ -78,6 +78,8 @@ AC_CHECK_HEADERS([a.out.h])
 
 m4_include(m4/ax_cxx_compile_stdcxx.m4)
 AX_CXX_COMPILE_STDCXX(11, noext, mandatory)
+
+AC_DEFINE([CLY_HEAD_CHECKSUM], [m4_esyscmd([printf "\"$(git rev-parse --short HEAD)\""])], [Short form of the HEAD commit checksum])
 
 # Only build Linux client libs when compiling for Linux
 case $host in

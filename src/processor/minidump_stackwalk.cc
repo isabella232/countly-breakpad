@@ -38,6 +38,7 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
 #include "common/scoped_ptr.h"
 #include "common/using_std_string.h"
 #include "google_breakpad/processor/basic_source_line_resolver.h"
@@ -106,7 +107,9 @@ bool PrintMinidumpProcess(const string &minidump_file,
 void usage(const char *program_name) {
   fprintf(stderr, "usage: %s [-m|-s] <minidump-file> [symbol-path ...]\n"
           "    -m : Output in machine-readable format\n"
-          "    -s : Output stack contents\n",
+          "    -s : Output stack contents\n"
+          "    -v : Print manually set version string\n"
+          "    -c : Print short build commit hash\n",
           program_name);
 }
 
@@ -143,6 +146,12 @@ int main(int argc, char **argv) {
     output_stack_contents = true;
     minidump_file = argv[2];
     symbol_path_arg = 3;
+  } else if (strcmp(argv[1], "-v") == 0) {
+    fprintf(stdout, VERSION "\n");
+    return 1;
+  } else if (strcmp(argv[1], "-c") == 0) {
+    fprintf(stdout, CLY_HEAD_CHECKSUM "\n");
+    return 1;
   } else {
     minidump_file = argv[1];
     symbol_path_arg = 2;

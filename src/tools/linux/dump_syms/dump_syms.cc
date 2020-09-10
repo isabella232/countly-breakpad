@@ -36,6 +36,7 @@
 #include <string>
 #include <vector>
 
+#include "config.h"
 #include "common/linux/dump_symbols.h"
 
 using google_breakpad::WriteSymbolFile;
@@ -49,6 +50,8 @@ int usage(const char* self) {
   fprintf(stderr, "  -c    Do not generate CFI section\n");
   fprintf(stderr, "  -r    Do not handle inter-compilation unit references\n");
   fprintf(stderr, "  -v    Print all warnings to stderr\n");
+  fprintf(stderr, "  -V    Print the manually set version string\n");
+  fprintf(stderr, "  -C    Print short build commit hash\n");
   return 1;
 }
 
@@ -70,6 +73,12 @@ int main(int argc, char **argv) {
       handle_inter_cu_refs = false;
     } else if (strcmp("-v", argv[arg_index]) == 0) {
       log_to_stderr = true;
+    } else if (strcmp("-V", argv[arg_index]) == 0) {
+      fprintf(stdout, VERSION "\n");
+      return 0;
+    } else if (strcmp("-C", argv[arg_index]) == 0) {
+      fprintf(stdout, CLY_HEAD_CHECKSUM "\n");
+      return 0;
     } else {
       printf("2.4 %s\n", argv[arg_index]);
       return usage(argv[0]);

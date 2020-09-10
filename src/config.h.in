@@ -1,5 +1,8 @@
 /* src/config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* Short form of the HEAD commit checksum */
+#undef CLY_HEAD_CHECKSUM
+
 /* Define to 1 if you have the <a.out.h> header file. */
 #undef HAVE_A_OUT_H
 
@@ -77,6 +80,3 @@
 
 /* Define for large files, on AIX-style hosts. */
 #undef _LARGE_FILES
-
-/* Short form of the HEAD commit checksum */
-#undef CLY_HEAD_CHECKSUM

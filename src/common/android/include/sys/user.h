@@ -48,7 +48,9 @@
 #endif  // __aarch64__
 #endif  // defined(ANDROID_NDK_MAJOR_VERSION) && ANDROID_NDK_MAJOR_VERSION > 10
 
+#ifndef __aarch64__
 #include_next <sys/user.h>
+#endif
 
 #ifdef __i386__
 #ifdef __cplusplus
